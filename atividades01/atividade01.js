@@ -1,4 +1,4 @@
-//Atividade01 para entrega - Aluna Beatriz Querubim Batista - Prontuario: BP3016374
+//Atividade01 para entrega - Aluna: Beatriz Querubim Batista - Prontuario: BP3016374
 
 //Atividade 1. Verifique o tipo das diferentes variáveis usando typeof:
 console.log("Atividade 1: \n")
