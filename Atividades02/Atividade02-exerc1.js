@@ -1,7 +1,7 @@
 /*
 Desenvolvimento de Sistemas Web (DSWI6)
 Tecnologia em Análise e Desenvolvimento de Sistemas
-Aluna Beatriz Querubim  Batista - Prontuario: BP3016374
+Aluna: Beatriz Querubim  Batista - Prontuario: BP3016374
 */
 
 
