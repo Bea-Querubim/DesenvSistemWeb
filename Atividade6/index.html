@@ -1,0 +1,133 @@
+<!-- 
+Beatriz Querubim Batista - BP301637
+Atividade de Participação 6
+Atividade 1. Considerando a API https://jsonplaceholder.typicode.com/posts, crie uma página com HTML, CSS e Javascript (duvida: tudo junto??) que realiza requisições aos serviços da API de acordo com as imagens a seguir:
+-->
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD COM fetch e JSONPlaceholder</title>
+  <style>
+    body {
+      padding: 20px;
+      background: #f5f5f5;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    input {
+      padding: 5px;
+      font-size: 16px;
+      width: 60px;
+      text-align: center;
+    }
+
+    button {
+      padding: 8px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    #output {
+      white-space: pre-wrap;
+      background: #333;
+      color: white;
+      padding: 15px;
+      border: 1px solid #ccc;
+      max-width: 800px;
+      margin: auto;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>CRUD COM fetch e JSONPlaceholder</h1>
+
+  <div class="controls">
+    <button onclick="getPosts()">GET - Todos OS Posts</button>
+    <input type="number" id="postId" placeholder="ID" />
+    <button onclick="getPostById()">GET - post por ID</button>
+    <button onclick="createPost()">POST - Criar Post</button>
+    <button onclick="updatePost()">PUT -Atualizar post (ID 1)</button>
+    <button onclick="deletePost()">DELETE- Deletar post (ID 1)</button>
+  </div>
+
+  <div id="output">Resultado será exibido aqui...</div>
+
+  <script>
+    const output = document.getElementById("output");
+    const inputId = document.getElementById("postId");
+
+    function showResult(data) {
+      output.textContent = typeof data === "string" ? data : JSON.stringify(data, null, 2);
+    }
+
+    async function getPosts() {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts');
+      const data = await res.json();
+      showResult(data);
+    }
+
+    async function getPostById() {
+      const id = inputId.value;
+      if (!id) return alert("Digite um ID!");
+      const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
+      const data = await res.json();
+      showResult(data);
+    }
+
+    async function createPost() {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: 'Título Exemplo',
+          body: 'Corpo do post',
+          userId: 1
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const data = await res.json();
+      showResult(data);
+    }
+
+    async function updatePost() {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        method: 'PUT',
+        body: JSON.stringify({
+          id: 1,
+          title: 'Post Atualizado',
+          body: 'Conteúdo atualizado!',
+          userId: 1
+        }),
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      });
+      const data = await res.json();
+      showResult(data);
+    }
+
+    async function deletePost() {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
+        method: 'DELETE'
+      });
+      showResult("Post ID 1 deletado (simulado)");
+    }
+  </script>
+
+</body>
+</html>
